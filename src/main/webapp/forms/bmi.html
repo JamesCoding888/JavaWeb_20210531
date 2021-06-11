@@ -7,31 +7,55 @@
         <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
     </head>
     <body style="padding: 20px">
-        <form class="pure-form" method="post" action="/JavaWeb20210531/controller/Register">
-            <fieldset>
-                <legend>BMI (觀察不同的表單)</legend>
-                
-                <input type="text" name="sno" placeholder="學員編號" />
-                <select name="eno">
-                    <option value="1z0-808" selected>Java 基礎認證</option>
-                    <option value="1z0-809">Java 專業認證</option>
-                    <option value="1z0-900">Java Web認證</option>
-                </select>
-                <p />
-                考試時段（可複選）：
-                上午&nbsp;<input type="checkbox" name="time" value="1" />
-                下午&nbsp;<input type="checkbox" name="time" value="2" />
-                晚上&nbsp;<input type="checkbox" name="time" value="3" />
-                <p />
-                繳費狀況：
-                已繳&nbsp;<input type="radio" name="pay" value="true" />
-                未繳&nbsp;<input type="radio" name="pay" value="false" />
-                <p />
-                備註：
-                <textarea name="memo" rows="3" cols="30"></textarea>
+        <form class="pure-form" 
+              enctype="application/x-www-form-urlencoded"
+              method="post" action="/JavaWeb20210531/controller/BMI">
+              <fieldset>
+                <legend>BMI (預設表單編碼)</legend>
+                <input name="cname" type="text" placeholder="姓名" value="王小明"><p /> 
+                <input name="height" type="text" placeholder="身高" value="170"><p /> 
+                <input name="weight" type="text" placeholder="體重" value="60"><p />
                 <p />
                 <button type="submit" class="pure-button pure-button-primary">註冊</button>
-                <button type="reset" class="pure-button pure-button-primary">清除</button>
+            </fieldset>
+        </form>
+        
+        <form class="pure-form" 
+              enctype="text/plain"
+              method="post" action="/JavaWeb20210531/controller/BMI">
+            <fieldset>
+                <legend>BMI (表單編碼:text/plain)</legend>
+                <input name="cname" type="text" placeholder="姓名" value="王小明"><p /> 
+                <input name="height" type="text" placeholder="身高" value="170"><p /> 
+                <input name="weight" type="text" placeholder="體重" value="60"><p />
+                <p />
+                <button type="submit" class="pure-button pure-button-primary">註冊</button>
+            </fieldset>
+        </form>
+        
+        <form class="pure-form" 
+              enctype="multipart/form-data"
+              method="post" action="/JavaWeb20210531/controller/BMI">
+            <fieldset>
+                <legend>BMI (表單編碼:multipart/form-data)</legend>
+                <input name="cname" type="text" placeholder="姓名" value="王小明"><p /> 
+                <input name="height" type="text" placeholder="身高" value="170"><p /> 
+                <input name="weight" type="text" placeholder="體重" value="60"><p />
+                <p />
+                <button type="submit" class="pure-button pure-button-primary">註冊</button>
+            </fieldset>
+        </form>
+        
+        <form class="pure-form" 
+              enctype="multipart/form-data"
+              method="post" action="/JavaWeb20210531/controller/BMI">
+            <fieldset>
+                <legend>Upload (表單編碼:multipart/form-data)</legend>
+                <input name="cname" type="text" placeholder="圖片名稱" value="我的圖片"><p /> 
+                <p />
+                <input type="file" name="upload_file" />
+                <p />
+                <button type="submit" class="pure-button pure-button-primary">註冊</button>
             </fieldset>
         </form>
     </body>
