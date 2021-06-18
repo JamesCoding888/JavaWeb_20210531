@@ -1,7 +1,10 @@
 package com.web.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -45,21 +48,21 @@ public class UploadServlet extends HttpServlet{
                 .filter(part -> part.getName().equals("cname"))
                 .forEach(part -> {
                     try {
-                        String cname = IOUtils.toString(part.getInputStream(), 
-                                                        StandardCharsets.UTF_8.name());
+                        String cname = IOUtils.toString(part.getInputStream(),
+                                StandardCharsets.UTF_8.name());
                         resp.getWriter().print(part.getName() + " : ");
                         resp.getWriter().print(cname + "<br />");
                     } catch (Exception e) {
                     }
                 });
-        
+
         req.getParts()
                 .stream()
                 .filter(part -> part.getName().equals("upload_file"))
                 .forEach(part -> {
                     try {
-                        String data = IOUtils.toString(part.getInputStream(), 
-                                                        StandardCharsets.UTF_8.name());
+                        String data = IOUtils.toString(part.getInputStream(),
+                                StandardCharsets.UTF_8.name());
                         resp.getWriter().print(part.getName() + " : ");
                         resp.getWriter().print(data + "<br />");
                     } catch (Exception e) {
@@ -68,6 +71,51 @@ public class UploadServlet extends HttpServlet{
     }
 
     private void uploadImage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getParts()
+                .stream()
+                .filter(part -> part.getName().equals("cname"))
+                .forEach(part -> {
+                    try {
+                        String cname = IOUtils.toString(part.getInputStream(),
+                                StandardCharsets.UTF_8.name());
+                        resp.getWriter().print(part.getName() + " : ");
+                        resp.getWriter().print(cname + "<br />");
+                    } catch (Exception e) {
+                    }
+                });
 
+        req.getParts()
+                .stream()
+                .filter(part -> part.getName().equals("upload_file"))
+                .forEach(part -> {
+                    try {
+                        // 將 InputStream -> byte[] -> base64 字串
+                        InputStream is = part.getInputStream();
+                        byte[] bytes = IOUtils.toByteArray(is);
+                        String data = Base64.getEncoder().encodeToString(bytes);
+                        
+                        resp.getWriter().print(part.getName() + " : ");
+                        resp.getWriter().print(data + "<br />");
+                        String img = "<img src='data:image/png;base64, %s'>";
+                        img = String.format(img, data);
+                        resp.getWriter().print(img + "<br />");
+                        
+                        // 存檔資料夾
+                        String fileSavingFolder = getServletContext().getRealPath("/upload");
+                        // 確認資料夾是否存在
+                        File folder = new File(fileSavingFolder);
+                        if(!folder.exists()) {
+                            folder.mkdir(); // 建立資料夾
+                        }
+                        // 取得檔名
+                        String fname = part.getSubmittedFileName();
+                        // 存檔路徑
+                        String fileSavingPath = fileSavingFolder + File.separator + fname;
+                        // 將檔案寫入到伺服器中
+                        part.write(fileSavingPath);
+                        
+                    } catch (Exception e) {
+                    }
+                });
     }
 }
