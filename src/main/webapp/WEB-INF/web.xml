@@ -7,6 +7,10 @@
     </session-config>
     <!-- 宣告 Filter -->
     <filter>
+        <filter-name>PerformanceFilter</filter-name>
+        <filter-class>com.web.filter.PerformanceFilter</filter-class>
+    </filter>
+    <filter>
         <filter-name>Login</filter-name>
         <filter-class>com.web.filter.LoginFilter</filter-class>
     </filter>
@@ -14,15 +18,23 @@
         <filter-name>Watermark</filter-name>
         <filter-class>com.web.filter.WatermarkFilter</filter-class>
     </filter>
-    <!-- 宣告 Servlet -->
+    
+    <!-- 執行順序 -->
     <filter-mapping>
-        <filter-name>Watermark</filter-name>
+        <filter-name>PerformanceFilter</filter-name>
         <url-pattern>/secure/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>Login</filter-name>
         <url-pattern>/secure/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>Watermark</filter-name>
+        <url-pattern>/secure/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- 宣告 Servlet -->
+    
     <servlet>
         <servlet-name>HelloGenericServlet</servlet-name>
         <servlet-class>com.web.controller.HelloGenericServlet</servlet-class>
