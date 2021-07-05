@@ -1,6 +1,7 @@
 package com.web.controller;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +18,6 @@ public class BMISessionServlet extends HttpServlet {
         
         HttpSession session = req.getSession(true);
         //session.setMaxInactiveInterval(15);
-        
         String cname  = req.getParameter("cname");
         Double height = Double.parseDouble(req.getParameter("height"));
         Double weight = Double.parseDouble(req.getParameter("weight"));
