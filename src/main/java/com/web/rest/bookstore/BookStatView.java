@@ -4,44 +4,29 @@ import com.google.gson.Gson;
 import java.util.Base64;
 import java.util.Objects;
 
-public class Book {
-    private Integer id;
+public class BookStatView {
     private String name;
-    private Integer price;
     private Integer amount;
+    private Integer subtotal;
+    private Integer avgprice;
 
-    public Book() {
+    public BookStatView() {
     }
 
-    public Book(Integer id, String name, Integer price, Integer amount) {
-        this.id = id;
+    public BookStatView(String name, Integer amount, Integer subtotal, Integer avgprice) {
         this.name = name;
-        this.price = price;
         this.amount = amount;
+        this.subtotal = subtotal;
+        this.avgprice = avgprice;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    
+    
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
     }
 
     public Integer getAmount() {
@@ -52,13 +37,29 @@ public class Book {
         this.amount = amount;
     }
 
+    public Integer getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(Integer subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public Integer getAvgprice() {
+        return avgprice;
+    }
+
+    public void setAvgprice(Integer avgprice) {
+        this.avgprice = avgprice;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.name);
-        hash = 89 * hash + Objects.hashCode(this.price);
-        hash = 89 * hash + Objects.hashCode(this.amount);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.amount);
+        hash = 79 * hash + Objects.hashCode(this.subtotal);
+        hash = 79 * hash + Objects.hashCode(this.avgprice);
         return hash;
     }
 
@@ -73,22 +74,24 @@ public class Book {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Book other = (Book) obj;
+        final BookStatView other = (BookStatView) obj;
         if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.price, other.price)) {
             return false;
         }
         if (!Objects.equals(this.amount, other.amount)) {
             return false;
         }
+        if (!Objects.equals(this.subtotal, other.subtotal)) {
+            return false;
+        }
+        if (!Objects.equals(this.avgprice, other.avgprice)) {
+            return false;
+        }
         return true;
     }
-
+    
+    
+    
     
     @Override
     public String toString() {
