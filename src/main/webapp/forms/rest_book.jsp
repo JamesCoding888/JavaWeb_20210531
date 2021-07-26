@@ -23,7 +23,7 @@
                     title: 'Book 數量統計'
                 };
                 // BarChart, PieChart, ColumnChart, LineChart  
-                var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
                 chart.draw(data, options);
             }
         </script>
